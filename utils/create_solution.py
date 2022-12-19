@@ -166,13 +166,22 @@ def get_id_range(id):
     return "p"+range_id+"00"
 
 
-def file_exists(id, slut):
+def config_directory(id, slut):
     workbase_dir = '/Users/yiny/workspace/leetcode-java/problems/src/'
     mainbase_dir = workbase_dir + 'main/java/cn/geekhall/problems/'
+    testbase_dir = workbase_dir + 'test/java/cn/geekhall/problems/'
     id_range = get_id_range(id)
-    slut_dir = mainbase_dir + id_range + "/" + "p"+id.zfill(5)
+    package_dir = mainbase_dir + id_range
+    if not os.path.exists(package_dir):
+        os.mkdir(package_dir)
+    slut_dir = package_dir + "/p"+id.zfill(5)
     if not os.path.exists(slut_dir):
         os.mkdir(slut_dir)
+    return slut_dir
+
+
+def file_exists(id, slut):
+    slut_dir = config_directory(id, slut)
     solution_file = slut_dir + "/Solution" + id + ".java"
     readme_file = slut_dir + "/README.md"
     readme_file_cn = slut_dir + "/README.zh-CN.md"
@@ -243,12 +252,7 @@ def write_cn_readme(readme_file, id, title, content):
 
 
 def save_file(id, slut, title, difficulty, content):
-    workbase_dir = '/Users/yiny/workspace/leetcode-java/problems/src/'
-    mainbase_dir = workbase_dir + 'main/java/cn/geekhall/problems/'
-    id_range = get_id_range(id)
-    slut_dir = mainbase_dir + id_range + "/" + "p"+id.zfill(5)
-    if not os.path.exists(slut_dir):
-        os.mkdir(slut_dir)
+    slut_dir = config_directory(id, slut)
     solution_file = slut_dir + "/Solution" + id + ".java"
     readme_file = slut_dir + "/README.md"
     readme_file_cn = slut_dir + "/README.zh-CN.md"
