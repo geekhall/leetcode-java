@@ -33,6 +33,33 @@ import java.util.Stack;
  */
 class Solution00150 {
 
+  public int evalRPN1(String[] tokens) {
+    int len = tokens.length;
+    Stack<Integer> stack = new Stack<>();
+    for (int i = 0; i < len; i++) {
+      String token = tokens[i];
+      if (token.equals("+")) {
+        int a = stack.pop();
+        int b = stack.pop();
+        stack.push(b + a);
+      } else if (token.equals("-")) {
+        int a = stack.pop();
+        int b = stack.pop();
+        stack.push(b - a);
+      } else if (token.equals("*")) {
+        int a = stack.pop();
+        int b = stack.pop();
+        stack.push(b * a);
+      } else if (token.equals("/")) {
+        int a = stack.pop();
+        int b = stack.pop();
+        stack.push(b / a);
+      } else {
+        stack.push(Integer.parseInt(token));
+      }
+    }
+    return stack.pop();
+  }
   public int evalRPN(String[] tokens) {
     int n = tokens.length;
     int[] stack = new int[n];
@@ -65,7 +92,7 @@ class Solution00150 {
   public static void test_00150() {
     Solution00150 solution = new Solution00150();
     String[] tokens = {"2","1","+","3","*"};
-    int result = solution.evalRPN(tokens);
+    int result = solution.evalRPN1(tokens);
     System.out.println(result);
   }
 
