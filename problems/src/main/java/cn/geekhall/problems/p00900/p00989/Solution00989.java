@@ -1,5 +1,7 @@
 package cn.geekhall.problems.p00900.p00989;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,18 +35,53 @@ import java.util.List;
  */
 class Solution00989 {
 
+  /**
+   * 从数组的最后一位开始，依次与k的个位相加，如果相加的结果大于10，则k进1，否则k不变。
+   * 依次类推，直到k为0
+   * 如果k还有剩余，则将剩余的k插入到数组的最前面
+   * 最后将数组转换为List返回
+   * 时间复杂度：O(n)
+   * 空间复杂度：O(n)
+   *
+   *
+   * @param num
+   * @param k
+   * @return
+   */
   public List<Integer> addToArrayForm(int[] num, int k) {
     int len = num.length;
-    for (int i = len - 1; i >= 0; i--) {
 
+    // 从数组的最后一位开始，依次与k的个位相加，如果相加的结果大于10，则k进1，否则k不变。
+    for (int i = len - 1; i >= 0; i--) {
+      int sum = num[i] + k % 10;
+      k /= 10;
+      if (sum >= 10) {
+        k++; // 进位
+        sum -= 10;
+      }
+      num[i] = sum;
     }
-    return null;
+
+    // 如果k还有剩余(k数值比num表示的数值更大/更长)，则将剩余的k插入到数组的最前面
+    while (k > 0) {
+      int[] newNum = new int[len + 1];
+      newNum[0] = k % 10;
+      k /= 10;
+      System.arraycopy(num, 0, newNum, 1, len);
+      num = newNum;
+      len++;
+    }
+    List<Integer> result = new ArrayList<>();
+    for (int i = 0; i < len; i++) {
+      result.add(num[i]);
+    }
+    return result;
   }
 
   public static void test_00989() {
     Solution00989 solution = new Solution00989();
-    int[] num = {1, 2, 0, 0};
-    int k = 34;
+    int[] num = {1, 2, 6, 6};
+    int k = 12345;
     List<Integer> result = solution.addToArrayForm(num, k);
     System.out.println(result);
   }
