@@ -42,3 +42,6 @@ build/
 ### Java class file ###
 *.class
 
+### python ###
+**/__pycache__/
+

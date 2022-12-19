@@ -170,7 +170,7 @@ def file_exists(id, slut):
     workbase_dir = '/Users/yiny/workspace/leetcode-java/problems/src/'
     mainbase_dir = workbase_dir + 'main/java/cn/geekhall/problems/'
     id_range = get_id_range(id)
-    slut_dir = mainbase_dir + id_range + "/" + "p"+id.zfill(5) + "_" + slut
+    slut_dir = mainbase_dir + id_range + "/" + "p"+id.zfill(5)
     if not os.path.exists(slut_dir):
         os.mkdir(slut_dir)
     solution_file = slut_dir + "/Solution" + id + ".java"
