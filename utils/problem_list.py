@@ -2234,7 +2234,7 @@ problem_dict = {
     '31': 'next-permutation',
     '30': 'substring-with-concatenation-of-all-words',
     '29': 'divide-two-integers',
-    '28': 'implement-strstr',
+    '28': 'find-the-index-of-the-first-occurrence-in-a-string',
     '27': 'remove-element',
     '26': 'remove-duplicates-from-sorted-array',
     '25': 'reverse-nodes-in-k-group',
