@@ -1,5 +1,6 @@
 package cn.geekhall.problems.p00000.p00049;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,8 +32,44 @@ import java.util.List;
 class Solution00049 {
 
   public List<List<String>> groupAnagrams(String[] strs) {
-    return null;
+    List<List<String>> result = new ArrayList<>();
+    for (String str : strs) {
+      boolean isAnagram = false;
+      for (List<String> list : result) {
+        if (isAnagram(list.get(0), str)) {
+          list.add(str);
+          isAnagram = true;
+          break;
+        }
+      }
+      if (!isAnagram) {
+        List<String> list = new ArrayList<>();
+        list.add(str);
+        result.add(list);
+      }
+    }
+    return result;
   }
+
+
+
+  private boolean isAnagram(String string, String str) {
+    if (string.length() != str.length()) {
+      return false;
+    }
+    int[] chars = new int[26];
+    for (int i = 0; i < string.length(); i++) {
+      chars[string.charAt(i) - 'a']++;
+      chars[str.charAt(i) - 'a']--;
+    }
+    for (int i = 0; i < chars.length; i++) {
+      if (chars[i] != 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 
 
   public static void test_00049() {
