@@ -40,20 +40,23 @@ class Solution01367 {
     if (root == null) {
       return false;
     }
-    return isSubPath(head, root.left) || isSubPath(head, root.right) || isSubPath(head, root.val, root);
+    if (dfs(head, root)) {
+      return true;
+    }
+    return isSubPath(head, root.left) || isSubPath(head, root.right);
   }
 
-  private boolean isSubPath(ListNode head, int val, TreeNode root) {
+  private boolean dfs(ListNode head, TreeNode root) {
     if (head == null) {
       return true;
     }
     if (root == null) {
       return false;
     }
-    if (root.val != val) {
+    if (head.val != root.val) {
       return false;
     }
-    return isSubPath(head.next, root.left) || isSubPath(head.next, root.right);
+    return dfs(head.next, root.left) || dfs(head.next, root.right);
   }
 
   public static void test_01367() {
