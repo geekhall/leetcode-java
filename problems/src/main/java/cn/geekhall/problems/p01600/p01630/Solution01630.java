@@ -49,15 +49,15 @@ class Solution01630 {
     for (int i = 0; i < l.length; i++) {
       int[] subArray = Arrays.copyOfRange(nums, l[i], r[i] + 1);
       Arrays.sort(subArray);
-      System.out.println(Arrays.toString(subArray));
       int diff = subArray[1] - subArray[0];
+      boolean isArithmetic = true;
       for (int j = 2; j < subArray.length; j++) {
         if (subArray[j] - subArray[j - 1] != diff) {
-          result.add(false);
+          isArithmetic = false;
           break;
         }
       }
-      result.add(true);
+      result.add(isArithmetic);
     }
     return result;
   }
