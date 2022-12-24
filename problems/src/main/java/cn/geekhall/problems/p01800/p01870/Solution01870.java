@@ -39,6 +39,9 @@ class Solution01870 {
   public int minSpeedOnTime(int[] dist, double hour) {
     int left = 1;
     int right = 10000000;
+    if (dist.length - 1 >= hour) {
+      return -1;
+    }
     while (left < right) {
       int mid = (left + right) / 2;
       double sum = 0;
@@ -52,7 +55,7 @@ class Solution01870 {
         right = mid;
       }
     }
-    return left == 10000000 ? -1 : left;
+    return left;
   }
 
   public static void test_01870() {
@@ -72,7 +75,7 @@ class Solution01870 {
     int[] dist4 = {1, 1, 100000};
     double hour4 = 2.01;
     result = solution.minSpeedOnTime(dist4, hour4);
-    System.out.println(result); // Expect 1000000
+    System.out.println(result); // Expect 10000000
     int[] dist5 = {1, 3, 2};
     double hour5 = 1.9;
     result = solution.minSpeedOnTime(dist5, hour5);
