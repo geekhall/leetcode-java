@@ -39,7 +39,7 @@ class Solution01712 {
       sum[i] = sum[i - 1] + nums[i];
     }
 
-
+    return result % mod;
   }
 
   public static void test_01712() {

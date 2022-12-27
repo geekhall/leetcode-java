@@ -43,7 +43,7 @@ class Solution00826 {
       jobs[i][0] = difficulty[i];
       jobs[i][1] = profit[i];
     }
-    Arrays.sort(jobs, (a, b) -> a[0] - b[0]);
+    Arrays.sort(jobs, (a, b) -> a[0] - b[0]); // sort by difficulty ascending
     Arrays.sort(worker);
     int maxProfit = 0;
     int best = 0;

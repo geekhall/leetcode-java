@@ -1,7 +1,5 @@
 package cn.geekhall.algorithms.basic;
 
-import java.util.PriorityQueue;
-
 /**
  * HeapUtils.java
  * 索引从0开始的堆结构：

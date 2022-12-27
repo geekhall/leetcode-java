@@ -1,6 +1,6 @@
 package cn.geekhall.algorithms.bruteforce;
 
-import java.util.HashMap;
+// import java.util.HashMap;
 
 /**
  * 给定一组不重复硬币面值的数组和一个目标金额。
@@ -32,7 +32,7 @@ public class CoinsWayProblem {
     public static int dpways(int[] arr, int aim) {
         int N = arr.length;
         if (arr == null || arr.length == 0 || aim < 0) return 0;
-//        HashMap<String, Integer> map = new HashMap<>();
+    //    HashMap<String, Integer> map = new HashMap<>();
         // dp[i][j] 表示使用i位置，剩余j面额的方法；初始化为-1
         int[][] dp = new int[N + 1][aim + 1];
         for (int i = 0; i < dp.length; i++) {
