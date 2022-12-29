@@ -1,5 +1,7 @@
 package cn.geekhall.problems.p01600.p01648;
 
+import java.util.Arrays;
+
 /**
  * ID:    01648
  * Title: Sell Diminishing-Valued Colored Balls
@@ -29,9 +31,30 @@ package cn.geekhall.problems.p01600.p01648;
 class Solution01648 {
 
   public int maxProfit(int[] inventory, int orders) {
-    int mod = 1000000007;
-    int result = 0;
-    return result % mod;
+    Arrays.sort(inventory);
+    long ans = 0;
+    int n = inventory.length-1;
+    long count = 1;
+    while(orders > 0){
+      if(n > 0 && inventory[n] - inventory[n-1] > 0 && orders >= count * (inventory[n] - inventory[n-1])){
+        ans += count * sumFromNtoX(inventory[n], inventory[n-1]);
+        orders -= count * (inventory[n] - inventory[n-1]);
+      }else if(n == 0 || inventory[n] - inventory[n-1] > 0){
+        long a = orders / count;
+        ans += count * sumFromNtoX(inventory[n], inventory[n]-a);
+        long b = orders % count;
+        ans += b * (inventory[n]-a);
+        orders = 0;
+      }
+      ans %= 1000000007;
+      n--;
+      count++;
+    }
+    return (int)ans;
+  }
+
+  private long sumFromNtoX(long n, long x){
+      return (n * (n+1))/2 - (x * (x+1))/2;
   }
 
   public static void test_01648() {
@@ -44,6 +67,14 @@ class Solution01648 {
     int orders2 = 6;
     int result2 = solution.maxProfit(inventory2, orders2);
     System.out.println(result2);
+    int[] inventory3 = {565259708,715164401,716563713,958255469,844600740,823949511,180479359,287829385,164248818,73361150,230686692,322986846,598720034,338241127,748922260,181241085,833659853,509571179,250093451,690995620,703292727,595636202};
+    int orders3 = 650114768;
+    int result3 = solution.maxProfit(inventory3, orders3);
+    System.out.println(result3); //  Expected: 997286992
+    int[] inventory4 = {1000000000,1000000000,1000000000};
+    int orders4 = 1000000000;
+    int result4 = solution.maxProfit(inventory4, orders4);
+    System.out.println(result4); //  Expected: 37
 
   }
 
