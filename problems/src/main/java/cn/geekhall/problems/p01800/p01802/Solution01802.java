@@ -1,7 +1,5 @@
 package cn.geekhall.problems.p01800.p01802;
 
-<<<<<<< HEAD
-=======
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -10,7 +8,6 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
->>>>>>> 88b3905 (chore: add answer)
 /**
  * ID:    01802
  * Title: Maximum Value at a Given Index in a Bounded Array
@@ -43,7 +40,28 @@ import javax.crypto.SecretKey;
 class Solution01802 {
 
   public int maxValue(int n, int index, int maxSum) {
-    return 0;
+    int left = 1;
+    int right = maxSum;
+    while (left < right) {
+      int mid = left + (right - left + 1) / 2;
+      if (check(n, index, maxSum, mid)) {
+        left = mid;
+      } else {
+        right = mid - 1;
+      }
+    }
+    return left;
+  }
+
+
+  private boolean check(int n, int index, int maxSum, int mid) {
+    long sum = mid;
+    int left = Math.max(0, index - (mid - 1));
+    int right = Math.min(n - 1, index + (mid - 1));
+    sum += (long) (mid - 1) * (mid - 2) / 2;
+    sum += (long) (index - left + 1) * (mid - 1);
+    sum += (long) (right - index + 1) * (mid - 1);
+    return sum <= maxSum;
   }
 
   public static void test_01802() {
