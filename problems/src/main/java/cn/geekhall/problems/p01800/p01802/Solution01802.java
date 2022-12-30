@@ -1,13 +1,5 @@
 package cn.geekhall.problems.p01800.p01802;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-
 /**
  * ID:    01802
  * Title: Maximum Value at a Given Index in a Bounded Array
