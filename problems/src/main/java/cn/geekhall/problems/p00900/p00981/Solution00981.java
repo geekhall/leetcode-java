@@ -1,6 +1,9 @@
 package cn.geekhall.problems.p00900.p00981;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * ID:    00981
@@ -28,37 +31,40 @@ import java.util.HashMap;
  */
 class TimeMap {
 
-  HashMap<String, HashMap<Integer, String>> keyTimeMap;
+  // HashMap of key(String) corresponding of TreeMap<TimeStamp,Value>>
+  HashMap<String,TreeMap<Integer,String>> map;
+
   public TimeMap() {
-    keyTimeMap = new HashMap<>();
+    map = new HashMap<String,TreeMap<Integer,String>>();
   }
 
   public void set(String key, String value, int timestamp) {
-    HashMap<Integer, String> timeValueMap = keyTimeMap.get(key);
-    if (timeValueMap == null) {
-      timeValueMap = new HashMap<>();
-      keyTimeMap.put(key, timeValueMap);
-    }
-    timeValueMap.put(timestamp, value);
+    TreeMap<Integer,String> tree_map;
+    // if key is not present create a new instance otherwise get that treemap which is already there in hashmap corresponding to key.
+    if(map.get(key) != null)
+      tree_map = map.get(key);
+    else
+      tree_map = new TreeMap<>(Collections.reverseOrder());
+    // finally put key value in treemap and then in hashmap.
+    tree_map.put(timestamp,value);
+    map.put(key,tree_map);
   }
 
   public String get(String key, int timestamp) {
-    HashMap<Integer, String> timeValueMap = keyTimeMap.get(key);
-    if (timeValueMap == null) {
-      return "";
-    }
-    if (timeValueMap.containsKey(timestamp)) {
-      return timeValueMap.get(timestamp);
-    }
-    int maxTime = 0;
-    for (Integer time : timeValueMap.keySet()) {
-      if (time <= timestamp && time > maxTime) {
-        maxTime = time;
+    // Iterate in hashmap first.
+    for(Map.Entry m : map.entrySet()){
+      // if key is equal to our hashmap key
+      if(m.getKey().equals(key)){
+        // get the value which is treemap correspond to given key.
+        TreeMap<Integer,String> tmap = (TreeMap<Integer,String>)m.getValue();
+        // Iterate in treemap
+        for(Map.Entry tm : tmap.entrySet()){
+          if((int)tm.getKey() <= timestamp) return String.valueOf(tm.getValue());
+        }
       }
     }
-    return timeValueMap.get(maxTime);
+    return "";
   }
-
   public static void test_00981() {
     TimeMap timeMap = new TimeMap();
     timeMap.set("foo", "bar", 1);
@@ -67,6 +73,14 @@ class TimeMap {
     timeMap.set("foo", "bar2", 4);
     System.out.println(timeMap.get("foo", 4));
     System.out.println(timeMap.get("foo", 5));
+
+    timeMap.set("love","high",10);
+    timeMap.set("love","low",20);
+    System.out.println(timeMap.get("love",5)); // Expected: ""
+    System.out.println(timeMap.get("love",10));
+    System.out.println(timeMap.get("love",15));
+    System.out.println(timeMap.get("love",20));
+    System.out.println(timeMap.get("love",25));
   }
 
   public static void main(String[] args) {
