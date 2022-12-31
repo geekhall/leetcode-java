@@ -2,8 +2,6 @@ package cn.geekhall.problems.p00900.p00981;
 
 import java.util.HashMap;
 
-import javax.print.attribute.HashAttributeSet;
-
 /**
  * ID:    00981
  * Title: Time Based Key-Value Store
