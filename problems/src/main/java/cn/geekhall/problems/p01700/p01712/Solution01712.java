@@ -31,15 +31,40 @@ package cn.geekhall.problems.p01700.p01712;
 class Solution01712 {
 
   public int waysToSplit(int[] nums) {
-    int result = 0;
     int mod = 1000000007;
-    int[] sum = new int[nums.length];
-    sum[0] = nums[0];
-    for (int i = 1; i < nums.length; i++) {
-      sum[i] = sum[i - 1] + nums[i];
+    int n = nums.length;
+    int[] preSum = new int[n];
+    preSum[0] = nums[0];
+    for (int i = 1; i < n; i++) {
+      preSum[i] = preSum[i - 1] + nums[i];
     }
-
-    return result % mod;
+    int result = 0;
+    for (int i = 0; i < n - 2; i++) {
+      int left = preSum[i];
+      int right = preSum[n - 1] - preSum[i];
+      int mid = preSum[n - 1] - left - right;
+      if (left > mid || mid > right) {
+        continue;
+      }
+      int leftIndex = i + 1;
+      int rightIndex = n - 1;
+      while (leftIndex < rightIndex) {
+        int midIndex = leftIndex + (rightIndex - leftIndex) / 2;
+        int leftSum = preSum[midIndex - 1] - preSum[i];
+        int rightSum = preSum[n - 1] - preSum[midIndex - 1];
+        if (leftSum > rightSum) {
+          rightIndex = midIndex;
+        } else {
+          leftIndex = midIndex + 1;
+        }
+      }
+      int leftSum = preSum[leftIndex - 1] - preSum[i];
+      int rightSum = preSum[n - 1] - preSum[leftIndex - 1];
+      if (leftSum <= rightSum) {
+        result = (result + (leftIndex - i)) % mod;
+      }
+    }
+    return result;
   }
 
   public static void test_01712() {
@@ -53,7 +78,6 @@ class Solution01712 {
     int[] nums3 = {3, 2, 1};
     result = solution.waysToSplit(nums3);
     System.out.println(result);
-
   }
 
   public static void main(String[] args) {
