@@ -1,7 +1,5 @@
 package cn.geekhall.algorithms.greedy;
 
-import cn.geekhall.datastructures.linkedlist.Problems;
-
 import java.util.Arrays;
 import java.util.Comparator;
 
