@@ -1,7 +1,5 @@
 package cn.geekhall.problems.p01800.p01845;
 
-import java.lang.reflect.Array;
-import java.util.Hashtable;
 
 /**
  * ID:    01845

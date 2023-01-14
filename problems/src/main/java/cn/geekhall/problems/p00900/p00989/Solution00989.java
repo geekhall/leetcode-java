@@ -1,7 +1,6 @@
 package cn.geekhall.problems.p00900.p00989;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

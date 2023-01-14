@@ -1,7 +1,5 @@
 package cn.geekhall.problems.p01200.p01201;
 
-import java.util.Arrays;
-
 /**
  * ID:    01201
  * Title: Ugly Number III

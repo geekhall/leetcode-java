@@ -1,7 +1,6 @@
 package cn.geekhall.problems.p02200.p02244;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 /**
