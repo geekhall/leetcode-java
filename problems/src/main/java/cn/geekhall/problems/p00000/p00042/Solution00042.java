@@ -49,21 +49,6 @@ class Solution00042 {
     return result;
   }
 
-  /**
-   * swap two elements in array
-   */
-  private void swap(int[] arr, int i, int j) {
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-  }
-  /**
-   * add two numbers
-   */
-  public int add(int a, int b) {
-    return a + b;
-  }
-
   public static void test_00042() {
     Solution00042 solution = new Solution00042();
     int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
