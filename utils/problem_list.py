@@ -1780,7 +1780,7 @@ problem_dict = {
     '494': 'target-sum',
     '493': 'reverse-pairs',
     '492': 'construct-the-rectangle',
-    '491': 'increasing-subsequences',
+    '491': 'non-decreasing-subsequences',
     '490': 'the-maze',
     '1643': 'kth-smallest-instructions',
     '488': 'zuma-game',
