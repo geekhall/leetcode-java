@@ -1,5 +1,6 @@
 
 problem_dict = {
+    '2359': 'find-closest-node-to-given-two-nodes',
     '2421': 'number-of-good-paths',
     '2303': 'calculate-amount-paid-in-taxes',
     '2283': 'check-if-number-has-equal-digit-count-and-digit-value',
