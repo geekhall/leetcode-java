@@ -78,4 +78,5 @@ public class TreeNode {
         TreeNode tree1 = TreeNode.create(new Integer[]{3, 9, 20, null, null, 15, 7});
         tree1.print();
     }
+
 }
