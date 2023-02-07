@@ -54,7 +54,7 @@ class Solution00904 {
     int right = 0;
     // basket[fruit] = count
     int[] basket = new int[fruits.length];
-    int basketCount = 0;
+    int basketCount = 0; // 当前水果种类数（用了几个篮子）
     // 滑动窗口，
     // 右边界不断右移，直到窗口内水果种类超过2，
     // 左边界右移，直到窗口内水果种类小于等于2
