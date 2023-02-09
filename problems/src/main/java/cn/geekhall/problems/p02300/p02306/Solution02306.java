@@ -2,8 +2,6 @@ package cn.geekhall.problems.p02300.p02306;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * ID: 02306
