@@ -1,5 +1,6 @@
 
 problem_dict = {
+    '2306': 'naming-a-company',
     '2359': 'find-closest-node-to-given-two-nodes',
     '2421': 'number-of-good-paths',
     '2303': 'calculate-amount-paid-in-taxes',
