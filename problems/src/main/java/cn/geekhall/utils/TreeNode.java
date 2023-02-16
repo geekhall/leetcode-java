@@ -2,7 +2,6 @@ package cn.geekhall.utils;
 
 import java.util.*;
 
-
 /**
  * TreeNode
  *
@@ -38,8 +37,10 @@ public class TreeNode {
             right.print();
         }
     }
+
     /**
      * 通过数组构建二叉树
+     * 
      * @param arr 数组
      * @return 二叉树
      */
@@ -68,14 +69,12 @@ public class TreeNode {
                 currentNode.right = rightNode;
                 treeNodeQueue.add(rightNode);
             }
-            System.out.println();
-
         }
         return root;
     }
 
     public static void main(String[] args) {
-        TreeNode tree1 = TreeNode.create(new Integer[]{3, 9, 20, null, null, 15, 7});
+        TreeNode tree1 = TreeNode.create(new Integer[] { 3, 9, 20, null, null, 15, 7 });
         tree1.print();
     }
 
