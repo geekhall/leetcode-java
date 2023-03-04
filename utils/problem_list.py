@@ -1,5 +1,6 @@
 
 problem_dict = {
+    '2444': 'count-subarrays-with-fixed-bounds',
     '2477': 'minimum-fuel-cost-to-report-to-the-capital',
     '2306': 'naming-a-company',
     '2359': 'find-closest-node-to-given-two-nodes',
