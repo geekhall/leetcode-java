@@ -55,9 +55,6 @@ class Solution00109 {
     head.print();
     TreeNode root = solution.sortedListToBST(head);
     root.print();
-    ListNode head2 = ListNode.create(new Integer[] {});
-    TreeNode root2 = solution.sortedListToBST(head2);
-    // root2.print();
   }
 
   public static void main(String[] args) {
