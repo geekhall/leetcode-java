@@ -10,7 +10,7 @@ package cn.geekhall.datastructures.trietree;
 public class TrieTree {
     private Node root;
 
-    public TrieTree(){
+    public TrieTree() {
         root = new Node();
     }
 
@@ -53,8 +53,10 @@ public class TrieTree {
         }
         return node.end;
     }
+
     /**
      * 从前缀树中删除word。
+     * 
      * @param word
      */
     public void delete(String word) {
@@ -76,6 +78,7 @@ public class TrieTree {
 
     /**
      * 所有加入的字符串中，有几个是以pre这个字符串作为前缀的。
+     * 
      * @param pre
      * @return
      */
@@ -94,8 +97,4 @@ public class TrieTree {
         }
         return node.pass;
     }
-
-
-
-
 }
