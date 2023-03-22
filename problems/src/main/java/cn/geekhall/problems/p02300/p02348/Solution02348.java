@@ -38,23 +38,22 @@ import java.util.*;
 class Solution02348 {
 
   public long zeroFilledSubarray(int[] nums) {
-    long count = 0;
-    int len = nums.length;
-    int zeroCount = 0;
-    for (int i = 0; i < len; i++) {
-      if (nums[i] == 0) {
-        zeroCount++;
-      } else {
-        if (zeroCount > 0) {
-          count += (zeroCount + 1) * zeroCount / 2;
-          zeroCount = 0;
-        }
-      }
+    long result = 0;
+    int n = nums.length;
+    int[] prefix = new int[n + 1];
+    for (int i = 0; i < n; i++) {
+      prefix[i + 1] = prefix[i] + nums[i];
     }
-    if (zeroCount > 0) {
-      count += (zeroCount + 1) * zeroCount / 2;
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i <= n; i++) {
+      int key = prefix[i];
+      map.put(key, map.getOrDefault(key, 0) + 1);
     }
-    return count;
+    for (int key : map.keySet()) {
+      int value = map.get(key);
+      result += (long) value * (value - 1) / 2;
+    }
+    return result;
   }
 
   public static void test_02348() {
@@ -68,6 +67,9 @@ class Solution02348 {
     int[] nums3 = { 2, 10, 2019 };
     long result3 = solution.zeroFilledSubarray(nums3);
     System.out.println(result3);
+    int[] nums4 = { 0, -9, 6, -5, 0, 0, 8, 0, 0, 3, -3 };
+    long result4 = solution.zeroFilledSubarray(nums4);
+    System.out.println(result4);
   }
 
   public static void main(String[] args) {
