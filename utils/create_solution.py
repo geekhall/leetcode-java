@@ -286,9 +286,14 @@ if __name__ == '__main__':
         leetcode_id = str(sys.argv[1])
         if is_number(leetcode_id):
             id = leetcode_id
-            slut = problem_dict[id]
-            # need_access = False
-            # if not file_exists(id, slut):
-            #     need_access = True
-            # if need_access:
-            create_single_slug(id)
+            try:
+                slut = problem_dict[id]
+                need_access = False
+            except:
+                print("Except : ")
+            if not file_exists(id, slut):
+                need_access = True
+                print("File exist")
+            if need_access:
+                print("File Not exist, Need access")
+            # create_single_slug(id)
