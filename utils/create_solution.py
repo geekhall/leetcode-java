@@ -291,9 +291,9 @@ if __name__ == '__main__':
                 need_access = False
             except:
                 print("Except : ")
-            if not file_exists(id, slut):
-                need_access = True
-                print("File exist")
-            if need_access:
-                print("File Not exist, Need access")
-            # create_single_slug(id)
+            # if not file_exists(id, slut):
+            #     need_access = True
+            #     print("File exist")
+            # if need_access:
+            #     print("File Not exist, Need access")
+            create_single_slug(id)
