@@ -1,5 +1,6 @@
 
 problem_dict = {
+    '2439': 'minimize-maximum-of-array',
     '2492': 'minimum-score-of-a-path-between-two-cities',
     '2444': 'count-subarrays-with-fixed-bounds',
     '2477': 'minimum-fuel-cost-to-report-to-the-capital',
