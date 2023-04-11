@@ -1,5 +1,6 @@
 
 problem_dict = {
+    '2390': 'removing-stars-from-a-string',
     '2439': 'minimize-maximum-of-array',
     '2492': 'minimum-score-of-a-path-between-two-cities',
     '2444': 'count-subarrays-with-fixed-bounds',
