@@ -168,8 +168,8 @@ def get_id_range(id):
 
 def config_directory(id, slut):
     workbase_dir = '/Users/yiny/workspace/leetcode-java/problems/src/'
-    mainbase_dir = workbase_dir + 'main/java/cn/geekhall/problems/'
-    testbase_dir = workbase_dir + 'test/java/cn/geekhall/problems/'
+    mainbase_dir = workbase_dir + 'main/java/net/geekhour/problems/'
+    testbase_dir = workbase_dir + 'test/java/net/geekhour/problems/'
     id_range = get_id_range(id)
     package_dir = mainbase_dir + id_range
     if not os.path.exists(package_dir):
@@ -202,7 +202,7 @@ def file_exists(id, slut):
 def write_solution(solution_file, id, title, difficulty, content_text):
     id_range = get_id_range(id)
     sf = open(solution_file, 'w')
-    sf.write("package " + "cn.geekhall.problems." +
+    sf.write("package " + "net.geekhour.problems." +
              id_range + ".p" + id + ";\n")
     sf.write("\n")
     sf.write("/**\n")
