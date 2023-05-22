@@ -205,6 +205,8 @@ def write_solution(solution_file, id, title, difficulty, content_text):
     sf.write("package " + "net.geekhour.problems." +
              id_range + ".p" + id + ";\n")
     sf.write("\n")
+    sf.write("import java.util.*;")
+    sf.write("\n")
     sf.write("/**\n")
     sf.write(" * ID:    " + id + "\n")
     sf.write(" * Title: " + title + "\n")
