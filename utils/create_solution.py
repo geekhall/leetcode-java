@@ -117,6 +117,11 @@ def get_problem_by_slug(slug):
                         name
                         slug
                 }
+                codeSnippets {
+                        lang
+                        langSlug
+                        code
+                    }
             }
         }'''
               }
@@ -137,6 +142,7 @@ def get_problem_by_slug(slug):
     questionTitleSlug = question['questionTitleSlug']
     question_content = question['content']
     difficulty = question['difficulty']
+    code_snippets = question['codeSnippets']
 
     # headers_cn = {'User-Agent': user_agent, 'Connection':
     #               'keep-alive', 'Content-Type': 'application/json',
@@ -148,7 +154,7 @@ def get_problem_by_slug(slug):
     # content_cn = question_cn['translatedContent']
     # content_cn = question_cn['content']
     # print("question_content:" + str(question_content))
-    return questionFrontendId, questionTitleSlug, questionTitle, difficulty, question_content
+    return questionFrontendId, questionTitleSlug, questionTitle, difficulty, question_content, code_snippets
 
 
 '''
@@ -199,7 +205,50 @@ def file_exists(id, slut):
     return True
 
 
-def write_solution(solution_file, id, title, difficulty, content_text):
+def get_problem_template(slug):
+    url = f"https://leetcode.com/graphql"
+
+    headers = {
+        "Content-Type": "application/json",
+        "Referer": f"https://leetcode.com/problems/{slug}/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    }
+
+    data = {
+        "operationName": "questionData",
+        "variables": {"titleSlug": slug},
+        "query": """
+            query questionData($titleSlug: String!) {
+                question(titleSlug: $titleSlug) {
+                    content
+                    codeSnippets {
+                        lang
+                        langSlug
+                        code
+                    }
+                }
+            }
+        """,
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+
+    if response.status_code == 200:
+        data = response.json()
+        question_data = data["data"]["question"]
+        code_snippets = question_data["codeSnippets"]
+
+        # Find the code snippet with the desired language (e.g., Python)
+        for snippet in code_snippets:
+            if snippet["langSlug"] == "java":
+                return snippet["code"]
+
+        print(f"No Python code template found for problem '{slug}'.")
+    else:
+        print(f"Failed to retrieve problem template for '{slug}'.")
+
+
+def write_solution(solution_file, id, title, difficulty, content_text, code_snippet):
     id_range = get_id_range(id)
     sf = open(solution_file, 'w')
     sf.write("package " + "net.geekhour.problems." +
@@ -215,9 +264,10 @@ def write_solution(solution_file, id, title, difficulty, content_text):
     sf.write(" */\n")
     sf.write("class Solution"+id+" {\n")
     sf.write("\n")
-    sf.write("  public static void solution(){\n")
-    sf.write("    System.out.println(\"solution\");\n")
-    sf.write("  }\n")
+    # sf.write("  public static void solution(){\n")
+    # sf.write("    System.out.println(\"solution\");\n")
+    # sf.write("  }\n")
+    sf.write(code_snippet)
     sf.write("\n")
     sf.write("  public static void test_" + id + "() {\n")
     sf.write("    Solution" + id + ".solution();\n")
@@ -253,14 +303,22 @@ def write_cn_readme(readme_file, id, title, content):
     sf.close()
 
 
-def save_file(id, slut, title, difficulty, content):
+def get_code_snippet_by_lang(code_snippets, lang):
+    for snippet in code_snippets:
+        if snippet["langSlug"] == lang:
+            return snippet["code"]
+    return None
+
+
+def save_file(id, slut, title, difficulty, content, code_snippets):
     slut_dir = config_directory(id, slut)
     solution_file = slut_dir + "/Solution" + id + ".java"
     readme_file = slut_dir + "/README.md"
     readme_file_cn = slut_dir + "/README.zh-CN.md"
     content_text = html_text.extract_text(content).replace('\n', '\n * ')
+    code_snippet=get_code_snippet_by_lang(code_snippets, "java")
     if not os.path.exists(solution_file):
-        write_solution(solution_file, id, title, difficulty, content_text)
+        write_solution(solution_file, id, title, difficulty, content_text, code_snippet)
     if not os.path.exists(readme_file):
         write_readme(readme_file, id, title, content)
     if not os.path.exists(readme_file_cn):
@@ -273,11 +331,45 @@ def save_file(id, slut, title, difficulty, content):
 def create_single_slug(id):
     slut = problem_dict[id]
     if not file_exists(id, slut):
-        print("EEEEEEnter")
-        questionFrontendId, questionTitleSlug, questionTitle, difficulty, content = get_problem_by_slug(
+        print("Problem generating...")
+        questionFrontendId, questionTitleSlug, questionTitle, difficulty, content, code_snippets= get_problem_by_slug(
             slut)
         save_file(questionFrontendId, questionTitleSlug,
-                  questionTitle, difficulty, content)
+                  questionTitle, difficulty, content, code_snippets)
+
+
+def get_leetcode_slug(problem_id):
+    url = f"https://leetcode.com/api/problems/all/"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        problem_set = data["stat_status_pairs"]
+
+        for problem in problem_set:
+            if problem["stat"]["question_id"] == problem_id:
+                return problem["stat"]["question__title_slug"]
+
+        print(f"No problem found with ID: {problem_id}")
+    else:
+        print("Failed to retrieve problems from LeetCode.")
+
+
+def get_leetcode_slug_by_frontend_id(problem_id):
+    url = f"https://leetcode.com/api/problems/all/"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        problem_set = data["stat_status_pairs"]
+
+        for problem in problem_set:
+            if problem["stat"]["frontend_question_id"] == problem_id:
+                return problem["stat"]["question__title_slug"]
+
+        print(f"No problem found with ID: {problem_id}")
+    else:
+        print("Failed to retrieve problems from LeetCode.")
 
 
 if __name__ == '__main__':
@@ -289,9 +381,12 @@ if __name__ == '__main__':
         if is_number(leetcode_id):
             id = leetcode_id
             try:
-                slut = problem_dict[id]
+
+
+                slug = problem_dict[id]
                 need_access = False
-            except:
+            except KeyError:
+                slug = get_leetcode_slug_by_frontend_id(id)
                 print("Except : ")
             # if not file_exists(id, slut):
             #     need_access = True
