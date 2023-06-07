@@ -250,35 +250,69 @@ def get_problem_template(slug):
 
 def write_solution(solution_file, id, title, difficulty, content_text, code_snippet):
     id_range = get_id_range(id)
+    solution_str = "package " + "net.geekhour.problems." + \
+        id_range + ".p" + id + ";\n"
+    solution_str += "\n"
+    solution_str += "import java.util.*;"
+    solution_str += "\n"
+    solution_str += "/**\n"
+    solution_str += " * ID:    " + id + "\n"
+    solution_str += " * Title: " + title + "\n"
+    solution_str += " * Difficulty: " + difficulty + "\n"
+    solution_str += " * Description: " + content_text + "\n"
+    solution_str += " */\n"
+    solution_str += "class Solution"+id+" {\n"
+    solution_str += "\n"
+    solution_str += code_snippet
+    solution_str += "\n"
+    solution_str += "  public static void test_"+ id + "(){\n"
+    solution_str += "    Solution" + id + " solution = new Solution"+id+"();\n"
+    solution_str += "    // \n"
+    solution_str += "  }\n"
+    solution_str += "\n"
+    solution_str += "  public static void main(String[] args) {\n"
+    solution_str += "    test_"+ id + "();\n"
+    solution_str += "  }\n"
+    solution_str += "}\n"
+    solution_str += "\n"
+    solution_str = solution_str.replace("class Solution {\n  ", "")
+    solution_str = solution_str.replace("}\n  public static void test_", "  public static void test_")
     sf = open(solution_file, 'w')
-    sf.write("package " + "net.geekhour.problems." +
-             id_range + ".p" + id + ";\n")
-    sf.write("\n")
-    sf.write("import java.util.*;")
-    sf.write("\n")
-    sf.write("/**\n")
-    sf.write(" * ID:    " + id + "\n")
-    sf.write(" * Title: " + title + "\n")
-    sf.write(" * Difficulty: " + difficulty + "\n")
-    sf.write(" * Description: " + content_text + "\n")
-    sf.write(" */\n")
-    sf.write("class Solution"+id+" {\n")
-    sf.write("\n")
-    # sf.write("  public static void solution(){\n")
-    # sf.write("    System.out.println(\"solution\");\n")
-    # sf.write("  }\n")
-    sf.write(code_snippet)
-    sf.write("\n")
-    sf.write("  public static void test_" + id + "() {\n")
-    sf.write("    Solution" + id + ".solution();\n")
-    sf.write("  }\n")
-    sf.write("\n")
-    sf.write("  public static void main(String[] args) {\n")
-    sf.write("    Solution"+id+".test_" + id + "();\n")
-    sf.write("  }\n")
-    sf.write("}\n")
-    sf.write("\n")
+    sf.write(solution_str)
     sf.close()
+
+
+
+    # sf = open(solution_file, 'w')
+    # sf.write("package " + "net.geekhour.problems." +
+    #          id_range + ".p" + id + ";\n")
+    # sf.write("\n")
+    # sf.write("import java.util.*;")
+    # sf.write("\n")
+    # sf.write("/**\n")
+    # sf.write(" * ID:    " + id + "\n")
+    # sf.write(" * Title: " + title + "\n")
+    # sf.write(" * Difficulty: " + difficulty + "\n")
+    # sf.write(" * Description: " + content_text + "\n")
+    # sf.write(" */\n")
+    # sf.write("class Solution"+id+" {\n")
+    # sf.write("\n")
+    # # sf.write("  public static void solution(){\n")
+    # # sf.write("    System.out.println(\"solution\");\n")
+    # # sf.write("  }\n")
+    # sf.write(code_snippet)
+    # sf.write("\n")
+    # sf.write("  public static void test_" + id + "() {\n")
+    # sf.write("    Solution" + id + " solution = new Solution"+id+"();\n")
+    # sf.write("  }\n")
+    # sf.write("\n")
+    # sf.write("  public static void main(String[] args) {\n")
+    # sf.write("    Solution"+id+".test_" + id + "();\n")
+    # sf.write("  }\n")
+    # sf.write("}\n")
+    # sf.write("\n")
+
+    # sf.close()
 
 
 def write_readme(readme_file, id, title, content):
