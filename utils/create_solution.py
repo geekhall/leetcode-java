@@ -3,7 +3,7 @@
 
 from curses.ascii import isdigit
 from traceback import print_tb
-from capstone import cs_disasm_lite
+# from capstone import cs_disasm_lite
 from numpy import diff
 import requests
 import json
