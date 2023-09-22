@@ -43,7 +43,6 @@ class Solution00004 {
       double median = (getKthElement(nums1, nums2, midIndex1 + 1) + getKthElement(nums1, nums2, midIndex2 + 1)) / 2.0;
       return median;
     }
-
   }
 
   private double getKthElement(int[] nums1, int[] nums2, int i) {
