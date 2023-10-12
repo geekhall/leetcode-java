@@ -106,7 +106,6 @@ class Solution02251 {
     people = new int[] { 3, 3, 2 };
     result = solution.fullBloomFlowers(flowers, people);
     System.out.println(Arrays.toString(result));
-
   }
 
   public static void main(String[] args) {
