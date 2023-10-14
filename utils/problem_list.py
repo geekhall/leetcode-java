@@ -1,5 +1,6 @@
 
 problem_dict = {
+    '2472': 'painting-the-walls',
     '2542': 'maximum-subsequence-score',
     '2390': 'removing-stars-from-a-string',
     '2439': 'minimize-maximum-of-array',
